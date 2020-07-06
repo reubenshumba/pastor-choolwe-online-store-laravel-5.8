@@ -1,0 +1,69 @@
+
+body{
+    margin: 0px;
+    padding: 2px;
+}
+.zoom {
+    /*padding: 50px;*/
+    color: rgba(86,139,147,0.66);
+    transition: transform .2s; /* Animation */
+    /* width: 200px;
+     height: 200px;
+     margin: 0 auto;*/
+}
+
+.zoom:hover,#product-show td:hover {
+    transform: scale(1);
+    background-color: rgba(0, 116, 130, 0.17);
+    /*rgba(86,139,147,0.66);*/
+    color: #007482;
+    font-weight: bolder;
+    text-align: center;
+}
+
+body,.table,th,li:hover{
+    font-family: Roboto, sans-serif;
+    font-size: 0.9em;
+    color: #007482;
+
+    /*font-size:14px;*/
+
+}
+td{
+    color: #475253;
+    font-size: 0.9em;
+    font-weight: lighter;
+}
+li,input,textarea,form{
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+#required{
+    color: red;
+}
+
+/*#side-bar*/
+table{
+    box-shadow: 3px 2px rgba(0, 34, 41, 0.34);
+}
+.product-grid2{font-family: "Raleway", "Gothamy", "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    position:relative;box-shadow: 3px 2px rgba(0, 34, 41, 0.64); }
+/*#007482;*/
+
+.btn{
+    font-size: 1rem;
+}
+h1,h2,h3,h4,h4{
+    font-family: "Raleway", "Gothamy", "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #717171;
+    background-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.4;
+
+}
+
+.side-bar li{
+    font-size: 0.7rem;
+}
+
