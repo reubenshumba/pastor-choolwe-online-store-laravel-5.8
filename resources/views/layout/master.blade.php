@@ -21,12 +21,15 @@
           rel="stylesheet">
 
 </head>
-<body>
-<div class="container">
-    <div class="flex-center position-ref full-height">
-        @include("partial.top-header")
-        <hr/>
-    </div>
+<body class="pl-0 pr-0 p-2">
+<div class="p-2">
+
+   <div class="row ">
+       <div class="col-12">
+           @include("partial.top-header")
+           <hr/>
+       </div>
+   </div>
 
     <div class="row">
         <div class="col-lg-2 col-md-2 hidden-sm-down hidden-xs-down">
@@ -34,7 +37,7 @@
         </div>
 
         <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
-            <div class="row">
+            <div class="">
                 @include("partial.header")
 
             </div>
@@ -83,7 +86,6 @@
     src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
     crossorigin="anonymous"></script>
-
 
 </body>
 </html>

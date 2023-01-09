@@ -81,13 +81,10 @@
                     <label for="productType">Select Product Type <span id="required" >*</span></label>
                     <select   id="productType"  name="productType" class="form-control">
                         <option value="-1">Select Product type</option>
-                        <option {{ $product->product_type_id==1?"selected" :""}}  value="pdf ">pdf</option>
-                        <option  {{ $product->product_type_id==2?"selected" :""}} value="audio">audio</option>
-                        <option  {{ $product->product_type_id==2?"selected" :""}} value="video">video</option>
 
-                        {{--                            @foreach($productTypes as $productType)--}}
-                        {{--                                <option   value="{{$productType->id}}" > {{$productType->productTypeName}} </option>--}}
-                        {{--                            @endforeach--}}
+                        @foreach($productTypes as $productType)
+                            <option   value="{{$productType->id}}" {{ $product->product_type_id==$productType->id ?"selected" :""}} > {{$productType->productTypeName}} </option>
+                        @endforeach
 
                     </select>
 

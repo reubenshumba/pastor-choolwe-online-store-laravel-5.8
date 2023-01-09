@@ -37,7 +37,7 @@
                         </div>
                         <div class="col">
                             <input type="text" class="form-control"
-                                   placeholder="Last name" value="REUBEN SHUMBA"
+                                   placeholder="Last name" value="SHUMBA"
                                    readonly>
                         </div>
                     </div>
@@ -87,8 +87,8 @@
                     </div>
                     <ul class="list-group list-group-flush">
                         <a href="{{route('dashboard.index')}}"><li class="list-group-item">Dashboard </li></a>
-                        <a href="{{route('dashboard.index')}}"> <li class="list-group-item"><span class="badge badge-primary badge-pill">142</span>
-                            Cart </span> </li> </a>
+                        <a href="{{ route('products.cart.index') }}"> <li class="list-group-item"><span class="badge badge-primary badge-pill"></span>
+                            Cart <span class="badge badge-primary badge-pill">{{Cart::count()}} </span></li>  </a>
                         <a href="{{route('dashboard.index')}}"> <li class="list-group-item"><span class="badge badge-primary badge-pill">142</span>
                             Purchased Messages </li></a>
 

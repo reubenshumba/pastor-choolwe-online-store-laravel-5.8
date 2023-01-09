@@ -1,7 +1,7 @@
-<div class="row row-cols-2 ">
+<div class="row">
     <div class="col-lg-6 col-md-6 hidden-sm col-xs-hidden pull-left pt-2">
 
-        <img src="{{asset("pcdl.png")}}" class="rounded"
+        <img src="{{asset("pcdl.jpg")}}" class="rounded"
              height="75px" alt="...">
 
     </div>
@@ -28,9 +28,8 @@
         @else
 
 
-
         <nav class="navbar navbar-expand-lg navbar-light ">
-            <a class="navbar-brand" href="#"> {{ Auth::user()->name }} </a>
+            <a class="navbar-brand" href="#"> </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent1"
                     aria-controls="navbarSupportedContent1" aria-expanded="false"
@@ -47,7 +46,7 @@
                            data-toggle="dropdown" aria-haspopup="true"
                            aria-expanded="false">
                             <img src="{{asset("products-images/product.jpg")}}" class="rounded-circle"
-                                 height="40px" alt="...">
+                                 height="40px" alt="..."> {{ Auth::user()->name }}
                         </a>
                         <div class="dropdown-menu"
                              aria-labelledby="navbarDropdown1">

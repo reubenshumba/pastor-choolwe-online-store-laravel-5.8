@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Product;
+use App\ProductType;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller
@@ -16,7 +18,13 @@ class ProductsController extends Controller
     {
         // $products = Product::inRandomOrder()->paginate(12);
         $products = Product::orderBy('id', 'desc')->paginate(8);
-        return view("index",["products"=>$products]);
+        $productCategories = Category::select()->get();
+        $productTypes =ProductType::select()->get();
+        return view("index",[
+            "products"=>$products,
+            "productCategories"=>$productCategories,
+            "productTypes"=>$productTypes]
+        );
 
     }
 

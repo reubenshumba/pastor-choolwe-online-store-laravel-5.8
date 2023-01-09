@@ -16,7 +16,7 @@
 
                             <table  class="table table-hover" id="product-show">
                                 <thead></thead>
-                                {{--['productName','ProductSlugName','productPrice','productDescription',
+                                {{--['productName','productSlugName','productPrice','productDescription',
                                     'productFeaturedImage','productLongDescription','productRelease','productOwner',
                                     'productUrl','productDownloadLink','productIframe','productDownloadLimit'];--}}
                                 <tbody >
@@ -132,15 +132,15 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 mb-2">
                         <div class="product-grid2">
                             <div class="product-image2">
-                                <a href="{{route("admin.products.show",['slugName'=>$product->ProductSlugName])}}">
+                                <a href="{{route("admin.products.show",['slugName'=>$product->productSlugName])}}">
                                     <img class="pic-2" src="{{asset("storage/$product->productFeaturedImage")}}">
                                     <img class="pic-1" src="{{asset("storage/$product->productFeaturedImage")}}">
                                 </a>
                                 <ul class="social">
-                                    <li><a href="{{route("admin.products.show",['slugName'=>$product->ProductSlugName])}}" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
+                                    <li><a href="{{route("admin.products.show",['slugName'=>$product->productSlugName])}}" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
                                     <li><a href="#" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
                                 </ul>
-                                <a  class="add-to-cart" href="{{route("admin.products.show",['slugName'=>$product->ProductSlugName])}}">New release</a>
+                                <a  class="add-to-cart" href="{{route("admin.products.show",['slugName'=>$product->productSlugName])}}">New release</a>
                             </div>
                             <div class="product-content">
                                 <h3 class="title"><a href="#">{{$product->productName}} </a></h3>

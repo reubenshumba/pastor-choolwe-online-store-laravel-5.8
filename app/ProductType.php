@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class ProductType extends Model
 {
     use SoftDeletes;
-    protected $fillable=['productTypeName','productTypeDescription'];
+    protected $fillable=['productTypeName','productTypeDescription','format'];
 
     public function products(){
         return $this->hasMany("App\Product");

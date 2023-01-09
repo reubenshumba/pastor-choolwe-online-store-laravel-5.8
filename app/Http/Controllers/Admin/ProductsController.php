@@ -16,14 +16,13 @@ class ProductsController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     * ['productName','ProductSlugName','productPrice','productDescription',
+     * ['productName','productSlugName','productPrice','productDescription',
     'productFeaturedImage','productLongDescription','productRelease','productOwner',
     'productUrl','productDownloadLink','productIframe','productDownloadLimit'];
      */
     public function index()
     {
-       // return 1;
-        // $products = Product::inRandomOrder()->paginate(12);
+
         $trashed = Product::onlyTrashed()->paginate(5);
 
         $products = Product::orderBy('id', 'desc')->paginate(5);
@@ -69,24 +68,24 @@ class ProductsController extends Controller
 
         ]);
 
-
+        $category =$request->input("productCategories")=== null ? [] : $request->input("productCategories");
+      //  dd($category);
 
         $product->productName=$request->input('productName');
-        $product->ProductSlugName=$product->slugNameGenerate($request->input('productName'));
+        $product->productSlugName=$product->slugNameGenerate($request->input('productName'));
         $product->productPrice=$request->input('productPrice');
         $product->productDescription=$request->input('productDescription');
         $product->productLongDescription=$request->input('productLongDescription');
         $product->productRelease=$request->input('productRelease');
         $product->productOwner=$request->input('productOwner') ===null ? "Pastor Choolwe": $request->productOwner ;
         $product->productIframe=$request->input('productIframe')=== null ? null : $request->productIframe ;
-        $product->productDownloadLimit=$request->input('productDownloadLimit')=== null ? 3 : $request->productDownloadLimit;
+        $product->productDownloadLimit =$request->input('productDownloadLimit')=== null ?
+            3 : $request->productDownloadLimit;
         $product->user_id=$user->id;
-       // $productType->products()->save($product);
-        $product=$product->validateProductType($request,$product);
-        $product->categories()->attach($request->input("productCategories")===null ? [] : $request->input("productCategories"));
         $product=$product->productSource($request,$product);
+        $product=$product->validateProductType($request,$product);
         $product->save();
-
+        $product->categories()->attach(array_merge($category,[]));
 
         return redirect()->route("admin.products.index")->with('success',"Successful added the product");
     }
@@ -101,8 +100,7 @@ class ProductsController extends Controller
     {
 
         //return $product;
-        $product = Product::where("ProductSlugName","=",$product)->get()->first();
-
+        $product = Product::where("productSlugName","=",$product)->get()->first();
         $products =Product::inRandomOrder()->where("user_id","=","" .Auth::user()->id)->limit(4)->get();
         return view("admin.products.show",["product"=>$product,"products"=>$products]);
     }
@@ -135,8 +133,6 @@ class ProductsController extends Controller
      */
     public function update(Request $request,$id)
     {
-        //$product =new Product();
-
         $product =Product::find($id);
         $user = Auth::user();
         $request->validate([
@@ -148,27 +144,23 @@ class ProductsController extends Controller
         ]);
 
 
+//        $product->productUrl=$request->input('productUrl')===null?$product->productUrl:$request->input('productUrl');
+//        $product->productIframe=$request->input('productIframe')=== null ? $product->productIframe : $request->productIframe ;
 
-
-        //return $productType->id;
-        //$product->productUrl=$request->input('productUrl')===null?$product->productUrl:$request->input('productUrl');
         $product->productName=$request->input('productName');
-        $product->ProductSlugName=$product->slugNameGenerate($request->input('productName'));
+        $product->productSlugName=$product->slugNameGenerate($request->input('productName'));
         $product->productPrice=$request->input('productPrice');
         $product->productDescription=$request->input('productDescription');
         $product->productLongDescription=$request->input('productLongDescription');
         $product->productRelease=$request->input('productRelease');
         $product->productOwner=$request->input('productOwner') ===null ? "Pastor Choolwe": $request->productOwner ;
-       // $product->productIframe=$request->input('productIframe')=== null ? $product->productIframe : $request->productIframe ;
         $product->productDownloadLimit=$request->input('productDownloadLimit')=== null ? $product->productDownloadLimit : $request->productDownloadLimit;
         $product->user_id=$user->id;
-        $product=$product->validateProductType($request,$product);
         $product->categories()->sync($request->input("productCategories")===null ? [] : $request->input("productCategories"));
         $product=$product->productSource($request,$product);
-        $product->save();
-
-
-        return redirect()->route("admin.products.index")->with('success',"Successful edit the <a href=".route('admin.products.show',['slugName'=>$product->ProductSlugName]).">product</a>");
+        $product=$product->validateProductType($request,$product);
+        //$product->save();
+        return redirect()->route("admin.products.index")->with('success',"Successful edit the <a href=".route('admin.products.show',['slugName'=>$product->productSlugName]).">product</a>");
 
     }
 

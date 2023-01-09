@@ -14,6 +14,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Type</th>
                         <th scope="col">Description</th>
+                        <th scope="col">Accepted Format</th>
                         <th class="col">Action</th>
                     </tr>
                     </thead>
@@ -27,6 +28,7 @@
                         <th scope="row">{{$count}}</th>
                         <td>{{$productType->productTypeName}}</td>
                         <td>{{$productType->productTypeDescription}}</td>
+                        <td>{{$productType->format}}</td>
                         <td>
                             <div class="btn-group" role="group" aria-label="Action">
 
@@ -84,6 +86,12 @@
                                    id="InputDescription" aria-describedby="Product Type Description" placeholder="Enter Product Type Description">
 
                         </div>
+                        <div class="form-group">
+                            <label for="format">Accepted Mimes Format</label>
+                            <input type="text" value="" class="form-control" name="format"
+                                   id="format" aria-describedby="Accepted Format" placeholder="Enter mimes accepted format">
+
+                        </div>
 
                         <button type="submit" class="btn btn-outline-info">Add</button>
                     </form>
@@ -120,6 +128,13 @@
                             <label for="InputDescription">Product Type Description</label>
                             <input type="text" value="{{$productType->productTypeDescription}}" class="form-control" name="productTypeDescription"
                                    id="InputDescription" aria-describedby="Product Type Description" placeholder="Enter Product Type Description">
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="format">Accepted Mimes Format</label>
+                            <input type="text" value="{{$productType->format}}" class="form-control" name="format"
+                                   id="format" aria-describedby="Accepted Format" placeholder="Enter mimes accepted format">
 
                         </div>
 

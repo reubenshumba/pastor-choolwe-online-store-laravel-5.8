@@ -39,11 +39,13 @@ class ProductTypeController extends Controller
     {
         $this->validate($request,[
             "productTypeName"=>"required|unique:product_types|max:255|min:3",
-            "productTypeDescription" =>"required|max:255|min:3"
+            "productTypeDescription" =>"required|max:255|min:3",
+            "format"=>"required",
         ]);
         $productType = new ProductType();
         $productType->productTypeName =strtolower($request->input("productTypeName"));
         $productType->productTypeDescription =$request->input("productTypeDescription");
+        $productType->format = $request->input("format");
         $productType->save();
         if(!$productType){
             return redirect()->back()->withErrors("Could not add the product type");
@@ -87,11 +89,14 @@ class ProductTypeController extends Controller
 
         $this->validate($request,[
             "productTypeName"=>"required|max:255|min:3",
-            "productTypeDescription" =>"required|max:255|min:3"
+            "productTypeDescription" =>"required|max:255|min:3",
+            "format"=>"required",
         ]);
         $productType =ProductType::find($productType);
         $productType->productTypeName =$request->input("productTypeName");
         $productType->productTypeDescription =$request->input("productTypeDescription");
+        $productType->format =$request->input("format");
+
         $productType->save();
         if(!$productType){
             return redirect()->back()->withErrors("Could not update the product type");

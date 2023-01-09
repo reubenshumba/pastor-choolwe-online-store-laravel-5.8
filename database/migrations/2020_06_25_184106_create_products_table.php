@@ -16,7 +16,7 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('productName', 250);
-            $table->string('ProductSlugName', 250);
+            $table->string('productSlugName', 250);
             $table->double('productPrice', 10, 2)->default(0.0);
             $table->text('productDescription')->nullable();
             $table->string('productFeaturedImage',250)->nullable();
@@ -28,6 +28,7 @@ class CreateProductsTable extends Migration
             $table->text("productDownloadLink")->nullable();
             $table->text("productIframe")->nullable();
             $table->integer("productDownloadLimit")->default(3);
+            $table->integer("productSource")->nullable();
             $table->foreignId('user_id')->references('id')->on('users');
             $table->foreignId('product_type_id')->references('id')->on('product_types');
             $table->softDeletes();

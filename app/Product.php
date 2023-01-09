@@ -11,9 +11,7 @@ class Product extends Model
 
     protected $data =['deleted_at'];
 
-
-
-    protected $fillable=['productName','ProductSlugName','productPrice','productDescription',
+    protected $fillable=['productName','productSlugName','productPrice','productDescription',
     'productFeaturedImage','productLongDescription','productRelease','productOwner',
         'productUrl','productDownloadLink','productIframe','productDownloadLimit,productSource'];
 
@@ -50,30 +48,40 @@ class Product extends Model
     //helper methods
     public function productSource($request,$product){
 
-
         if($request->has('productFeaturedImage')){
             $product->productFeaturedImage=$request->file('productFeaturedImage')->store('productFeaturedImage','public');
         }
 
         if($request->has('uploadedFile')){
-          //  $product->productSource=$request->input('productSource');
             $url=$request->file('uploadedFile')->store('uploadedFile','public');
-            $product->productUrl=$url;
-            $product->productDownloadLink=$url;
-            $product->productSource=1;
+            if ($request->has('uploadedFile')) {
+                $product->productUrl = $url;
+                $product->productDownloadLink = $url;
+                $product->productSource = 1;
+            }else{
+                $product->productUrl =null;
+            }
 
-        }else if($request->has('productUrl') || $product->productUrl !==null){
-           // $product->productSource=$request->input('productSource');
-            $product->productUrl=$request->input('productUrl');
-            $product->productDownloadLink=$request->input('productUrl');
-            $product->productSource=2;
+        }elseif($request->has('productUrl') || $product->productUrl !==null){
+            if ($request->has('productUrl')){
+                $product->productUrl=$request->input('productUrl');
+                $product->productDownloadLink=$request->input('productUrl');
+                $product->productSource=2;
+            }else{
+                $product->productUrl=null;
+            }
 
-        }else if($request->has('productIframe') ){
-           // $product->productSource=$request->input('productSource');
-            $product->productIframe=$request->input('productIframe')===null ? "<iframe src='#'> </iframe>": $request->productIframe ;
-            $product->productUrl=$request->input('productUrl');
-            $product->productDownloadLink=$request->input('productDownloadLink');
-            $product->productSource=3;
+
+        }elseif($request->has('productIframe') || $product->productIframe !==null ){
+
+            if ( $request->input('productIframe')){
+                $product->productUrl=$request->input('productUrl');
+                $product->productDownloadLink=$request->input('productDownloadLink');
+                $product->productSource=3;
+                $product->productIframe=$request->input('productIframe');
+            }else{
+                $product->productIframe= "" ;
+            }
 
         }
 
@@ -81,78 +89,14 @@ class Product extends Model
     }
 
     public function validateProductType($request,$product){
-//        if($request->input('productType') == "audio" && $request->has('uploadedFile')){
-//            $request->validate([
-//                "uploadedFile"=>"required|mimes:application/octet-stream,audio/mpeg,mpga,mp3,wav,ogg"
-//            ]);
-////            $productType=ProductType::find(2)->first();
-////            $productType->products()->save($product);
-//        }else  if($request->input('productType') == "pdf"  && $request->has('uploadedFile')){
-//            $request->validate([
-//                "uploadedFile"=>"required|mimes:doc,pdf,docx,zip|max:12000"
-//            ]);
-////            $productType=ProductType::find(1)->first();
-////            $productType->products()->save($product);
-//        }else if($request->input('productType') == "video"  && $request->has('uploadedFile')){
-//            $request->validate([
-//                "uploadedFile"=>"required|mimes:video/x-flv,video/mp4,video/3gpp,video/x-msvideo"
-//
-//            ]);
-////            $productType=ProductType::find(3)->first();
-////            $productType->products()->save($product);
-//        }
-//
-//        if($request->input('productType') == "audio"){
-//
-//            $productType=ProductType::find(2)->first();
-//            $product->productSource=2;
-//
-//        }else  if($request->input('productType') == "pdf" ){
-//            $productType=ProductType::find(1)->first();
-//            $product->productSource=2;
-//
-//        }else if($request->input('productType') == "video" ){
-//            $productType=ProductType::find(3)->first();
-//            $product->productSource=2;
-//
-//        }
-
-
-        if($request->input('productType') == "audio" && $request->has('uploadedFile')){
+        $productType=ProductType::find($request->input('productType'));
+        if($request->has('uploadedFile')){
             $request->validate([
-                "uploadedFile"=>"required|mimes:application/octet-stream,audio/mpeg,mpga,mp3,wav,ogg"
+                "uploadedFile"=>"required|mimes:".$productType->format
             ]);
-
-
-        }else  if($request->input('productType') == "pdf"  && $request->has('uploadedFile')){
-            $request->validate([
-                "uploadedFile"=>"required|mimes:doc,pdf,docx,zip|max:12000"
-            ]);
-
-
-        }else if($request->input('productType') == "video"  && $request->has('uploadedFile')){
-            $request->validate([
-                "uploadedFile"=>"required|mimes:video/x-flv,video/mp4,video/3gpp,video/x-msvideo"
-
-            ]);
-
-
         }
-        if($request->input('productType') == "audio"){
-            $productType=ProductType::find(2);
-            //$product->productSource=2;
-            $productType->products()->save($product);
-        }else  if($request->input('productType') == "pdf" ){
-            $productType=ProductType::find(1);
-           // $product->productSource=1;
-            $productType->products()->save($product);
-        }else if($request->input('productType') == "video" ){
-            $productType=ProductType::find(3);
-           // $product->productSource=3;
-            $productType->products()->save($product);
-        }
-
+        $productType->products()->save($product);
         return $product;
+
     }
 }
-///App\product

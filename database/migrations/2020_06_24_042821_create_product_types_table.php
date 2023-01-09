@@ -17,6 +17,7 @@ class CreateProductTypesTable extends Migration
             $table->id();
             $table->string("productTypeName",250);
             $table->text("productTypeDescription");
+            $table->text("format");
             $table->softDeletes();
             $table->timestamps();
         });

@@ -58,7 +58,7 @@
                     <td>
                         <div class="btn-group" role="group"
                              aria-label="Action">
-                            <a href="{{route("admin.products.show",["slugName"=>$product->ProductSlugName])}}">
+                            <a href="{{route("admin.products.show",["slugName"=>$product->productSlugName])}}">
                                 <button type="button"
                                         class="btn  btn-outline-primary"
                                         data-toggle="modal"
